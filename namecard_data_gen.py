@@ -64,28 +64,29 @@ def get_profile_img(user):
         f.write(res.content)
 
 def process_data(data):
-        type = data['type']
-        user = data['user']
-        print_name = data['print_name']
-        ticket_num = data['ticket_num']
-        t_shirt = data['t_shirt']
-        status = data['status']
+    type = data['type']
+    user = data['user']
+    print_name = data['print_name']
+    ticket_num = data['ticket_num']
+    t_shirt = data['t_shirt']
+    status = data['status']
 
-        if status == '参加キャンセル':
-            return
+    if status == '参加キャンセル':
+        return
 
-        print('processing ' + user)
+    print('processing ' + user)
 
-        writer.writerow([type, user, print_name, ticket_num, t_shirt])
+    writer.writerow([type, user, print_name, ticket_num, t_shirt])
 
-        # get profile image and save
-        #    get_profile_img(user)
-        # time.sleep(0.2)
+    # get profile image and save
+    get_profile_img(user)
+    # wait for API
+    time.sleep(0.2)
 
-        # generate QR and save
-        user_url = 'https://connpass.com/user/' + user + '/'
-        qr_path = DIR_USER_QR + '/' + user + '.png'
-        # gen_qr(user_url, qr_path)
+    # generate QR and save
+    user_url = 'https://connpass.com/user/' + user + '/'
+    qr_path = DIR_USER_QR + '/' + user + '.png'
+    gen_qr(user_url, qr_path)
 
 if __name__ == "__main__":
 
@@ -97,7 +98,6 @@ if __name__ == "__main__":
     reader2 = csv.reader(input2)
     writer = csv.writer(output)
     writer.writerow(['参加枠名', 'ユーザー名', '名札表示名', '受付番号', 'Tシャツのサイズ'])
-
 
     headers = next(reader)
     for row in reader:
