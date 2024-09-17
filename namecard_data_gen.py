@@ -13,6 +13,7 @@ CSV_INPUT_STAFF = 'event_326215_participants.csv'
 CSV_OUTPUT = 'pycon2024_attendee.csv'
 DIR_USER_IMG = 'user_img'
 DIR_USER_QR = 'user_qr'
+CONNPASS_API_INTERVAL = 5
 
 def  gen_qr(data, path):
     qr = qrcode.QRCode(
@@ -81,7 +82,7 @@ def process_data(data):
     # get profile image and save
     get_profile_img(user)
     # wait for API
-    time.sleep(0.2)
+    time.sleep(CONNPASS_API_INTERVAL)
 
     # generate QR and save
     user_url = 'https://connpass.com/user/' + user + '/'
